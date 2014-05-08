@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install type="language" version="1.5.0" client="site">
+	<name>Nederlands - Site</name> 
+	<tag>nl-NL</tag>
+  <version>1.5.7</version> 
+  <creationDate>2007-01-25</creationDate> 
+  <author>Joomla! Nederlands</author>
+  <authorEmail>sander@taalbestand.nl</authorEmail>
+  <description>Nederlandstalig taalbestand voor de frontend</description>
+  <files>
+    <file file="meta">nl-NL.xml</file>
+    <file>nl-install.xml</file>
+    <file>nl-NL.com_banners.ini</file>
+    <file>nl-NL.com_contact.ini</file>
+    <file>nl-NL.com_content.ini</file>
+    <file>nl-NL.com_frontpage.ini</file>
+    <file>nl-NL.com_mailto.ini</file>
+    <file>nl-NL.com_media.ini</file>
+    <file>nl-NL.com_messages.ini</file>
+    <file>nl-NL.com_newsfeeds.ini</file>
+    <file>nl-NL.com_poll.ini</file>
+    <file>nl-NL.com_search.ini</file>
+    <file>nl-NL.com_user.ini</file>
+    <file>nl-NL.com_weblinks.ini</file>
+    <file>nl-NL.com_wrapper.ini</file>
+    <file>nl-NL.ignore.php</file>
+    <file>nl-NL.ini</file>
+    <file>nl-NL.mod_archive.ini</file>
+    <file>nl-NL.mod_banners.ini</file>
+    <file>nl-NL.mod_breadcrumbs.ini</file>
+    <file>nl-NL.mod_custom.ini</file>
+    <file>nl-NL.mod_feed.ini</file>
+    <file>nl-NL.mod_footer.ini</file>
+    <file>nl-NL.mod_latestnews.ini</file>
+    <file>nl-NL.mod_login.ini</file>
+    <file>nl-NL.mod_mainmenu.ini</file>
+    <file>nl-NL.mod_mostread.ini</file>
+    <file>nl-NL.mod_newsflash.ini</file>
+    <file>nl-NL.mod_online.ini</file>
+    <file>nl-NL.mod_poll.ini</file>
+    <file>nl-NL.mod_random_image.ini</file>
+    <file>nl-NL.mod_related_items.ini</file>
+    <file>nl-NL.mod_search.ini</file>
+    <file>nl-NL.mod_sections.ini</file>
+    <file>nl-NL.mod_stats.ini</file>
+    <file>nl-NL.mod_syndicate.ini</file>
+    <file>nl-NL.mod_whosonline.ini</file>
+    <file>nl-NL.mod_wrapper.ini</file>
+    <file>nl-NL.plg_content_vote.ini</file>
+    <file>nl-NL.plg_search_categories.ini</file>
+    <file>nl-NL.plg_search_contacts.ini</file>
+    <file>nl-NL.plg_search_content.ini</file>
+    <file>nl-NL.plg_search_newsfeeds.ini</file>
+    <file>nl-NL.plg_search_sections.ini</file>
+    <file>nl-NL.plg_search_weblinks.ini</file>
+    <file>nl-NL.plg_system_debug.ini</file>
+    <file>nl-NL.tpl_beez.ini</file>
+    <file>nl-NL.tpl_ja_purity.ini</file>
+    <file>nl-NL.tpl_rhuk_milkyway.ini</file>
+    <file>index.html</file>
+  </files>
+</install>

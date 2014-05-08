@@ -1,0 +1,78 @@
+body { text-align: left; color: #FFFFFF; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif ;  font-size: 12px; }
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; color: #EDB54D; }
+h3 { font-size: 1em; }
+
+td, th {  }
+
+a 	 { text-decoration: none; }
+
+p {
+	text-align: left;
+}
+
+bold {
+	font-weight: bold;
+}
+
+a:link    { color: #EDB54D; }
+a:visited { color: #EDB54D; }
+a:hover   { color: #FFFFFF; text-decoration: underline; }
+a:active  { color: #EDB54D; }
+
+input, textarea, select, label
+{ font-family: Verdana, Arial, Helvetica, sans-serif;  font-size: 1em; text-indent: 2px; }
+
+input, textarea, select { color: #000000; }
+label                   { color: #FFFFFF; }
+
+/* -- Switchable font styles --------------------- */
+
+
+/* -- ID styles ---------------------------------- */
+
+#container {
+	text-align: left;
+}
+
+/* -- ID styles ---------------------------------- */
+
+#menu ul 	{ }
+#menu li 	{ text-align: center; }
+#menu a  	{ font-weight: bold; font-size: 15px; text-decoration: none; }
+
+#menu a:link  		{ }
+#menu a:visited 	{ }
+#menu a:hover		{
+	background: rgba(0,0,0,0.2);
+	color: #DADADA;
+}
+#menu a:active
+
+
+#menu li.active a,
+#menu li.active a:link,
+#menu li.active a:hover,
+#menu li.active a:visited,
+#menu li.active a:active {
+	color: #FFFFFF;
+	background: rgba(0,0,0,0.3);
+}
+
+#left a:link,
+#left a:visited,
+#left a:hover,
+#left a:active		{ font-weight: bold;  }
+
+
+
+#footer 			{ color: #F5F5F5; font-size: 10px; }
+#footer a  			{ color: #F5F5F5; font-size: 10px; }
+
+#footer a:link  		{ color: #EDB54D; }
+#footer a:visited 		{ color: #EDB54D; }
+#footer a:hover 		{ color: #F5F5F5; text-decoration: underline; }
+#footer a:active		{ color: #F5F5F5; text-decoration: underline; }
+
+/* -- Class styles ------------------------------- */
