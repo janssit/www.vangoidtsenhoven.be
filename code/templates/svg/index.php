@@ -45,6 +45,9 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 			<div id="component">
 				<jdoc:include type="component" />
+                <?php if(JSite::getMenu()->getActive()->id == '4') : ?>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d161061.3235688024!2d5.112654000000001!3d50.89442449999999!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c115fa3a10034f%3A0x58dea356e8f5e6c4!2sOudestraat+1!5e0!3m2!1sen!2s!4v1399546051334&language=nl" width="640" height="450" frameborder="0" style="border:0"></iframe>
+                <?php endif ?>
 			</div>
 		</div>
 		<div class="clear"></div>
