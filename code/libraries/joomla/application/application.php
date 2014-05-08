@@ -1,9 +1,9 @@
 <?php
 /**
-* @version		$Id: application.php 11409 2009-01-10 02:27:08Z willebil $
+* @version		$Id: application.php 22244 2011-10-16 15:50:00Z dextercowley $
 * @package		Joomla.Framework
 * @subpackage	Application
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2010 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -14,6 +14,8 @@
 
 // Check to ensure this file is within the rest of the framework
 defined('JPATH_BASE') or die();
+
+jimport('joomla.event.dispatcher');
 
 /**
 * Base class for a Joomla! application.
@@ -256,19 +258,20 @@ class JApplication extends JObject
 	 *
 	 * Optionally enqueues a message in the system message queue (which will be displayed
 	 * the next time a page is loaded) using the enqueueMessage method. If the headers have
-	 * not been sent the redirect will be accomplished using a "301 Moved Permanently"
-	 * code in the header pointing to the new location. If the headers have already been
-	 * sent this will be accomplished using a JavaScript statement.
+	 * not been sent the redirect will be accomplished using a "301 Moved Permanently" or "303 See Other"
+	 * code in the header pointing to the new location depending upon the moved flag. If the headers
+	 * have already been sent this will be accomplished using a JavaScript statement.
 	 *
 	 * @access	public
 	 * @param	string	$url	The URL to redirect to. Can only be http/https URL
 	 * @param	string	$msg	An optional message to display on redirect.
 	 * @param	string  $msgType An optional message type.
+	 * @param	boolean	True if the page is 301 Permanently Moved, otherwise 303 See Other is assumed.
 	 * @return	none; calls exit().
 	 * @since	1.5
 	 * @see		JApplication::enqueueMessage()
 	 */
-	function redirect( $url, $msg='', $msgType='message' )
+	function redirect( $url, $msg='', $msgType='message', $moved = false )
 	{
 		// check for relative internal links
 		if (preg_match( '#^index[2]?.php#', $url )) {
@@ -282,13 +285,15 @@ class JApplication extends JObject
 		// If we don't start with a http we need to fix this before we proceed
 		// We could validly start with something else (e.g. ftp), though this would
 		// be unlikely and isn't supported by this API
-		if(!preg_match( '#^http#i', $url )) {
+		if (!preg_match( '#^http#i', $url )) {
 			$uri =& JURI::getInstance();
 			$prefix = $uri->toString(Array('scheme', 'user', 'pass', 'host', 'port'));
-			if($url[0] == '/') {
+
+			if ($url[0] == '/') {
 				// we just need the prefix since we have a path relative to the root
 				$url = $prefix . $url;
-			} else {
+			}
+			else {
 				// its relative to where we are now, so lets add that
 				$parts = explode('/', $uri->toString(Array('path')));
 				array_pop($parts);
@@ -304,23 +309,28 @@ class JApplication extends JObject
 		}
 
 		// Persist messages if they exist
-		if (count($this->_messageQueue))
-		{
+		if (count($this->_messageQueue)) {
 			$session =& JFactory::getSession();
 			$session->set('application.queue', $this->_messageQueue);
 		}
 
-		/*
-		 * If the headers have been sent, then we cannot send an additional location header
-		 * so we will output a javascript redirect statement.
-		 */
+		// If the headers have been sent, then we cannot send an additional location header
+		// so we will output a javascript redirect statement.
 		if (headers_sent()) {
 			echo "<script>document.location.href='$url';</script>\n";
-		} else {
-			//@ob_end_clean(); // clear output buffer
-			header( 'HTTP/1.1 301 Moved Permanently' );
-			header( 'Location: ' . $url );
 		}
+		else {
+			if (!$moved && strstr(strtolower($_SERVER['HTTP_USER_AGENT']), 'webkit') !== false) {
+				// WebKit browser - Do not use 303, as it causes subresources reload (https://bugs.webkit.org/show_bug.cgi?id=38690)
+				echo '<html><head><meta http-equiv="refresh" content="0;'. $url .'" /></head><body></body></html>';
+			}
+			else {
+				// All other browsers, use the more efficient HTTP header method
+				header($moved ? 'HTTP/1.1 301 Moved Permanently' : 'HTTP/1.1 303 See other');
+				header('Location: '.$url);
+			}
+		}
+
 		$this->close();
 	}
 
@@ -529,6 +539,12 @@ class JApplication extends JObject
 
 		if ($response->status === JAUTHENTICATE_STATUS_SUCCESS)
 		{
+			$session = &JFactory::getSession();
+
+			// we fork the session to prevent session fixation issues
+			$session->fork();
+			$this->_createSession($session->getId());
+
 			// Import the user plugin group
 			JPluginHelper::importPlugin('user');
 
@@ -551,13 +567,16 @@ class JApplication extends JObject
 					jimport('joomla.utilities.simplecrypt');
 					jimport('joomla.utilities.utility');
 
-					//Create the encryption key, apply extra hardening using the user agent string
-					$key = JUtility::getHash(@$_SERVER['HTTP_USER_AGENT']);
-
-					$crypt = new JSimpleCrypt($key);
-					$rcookie = $crypt->encrypt(serialize($credentials));
-					$lifetime = time() + 365*24*60*60;
-					setcookie( JUtility::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, '/' );
+					// Create the encryption key, apply extra hardening using the user agent string
+                    $agent = @$_SERVER['HTTP_USER_AGENT'];
+                    // Ignore empty and crackish user agents
+                    if ($agent != '' && $agent != 'JLOGIN_REMEMBER') {
+                        $key = JUtility::getHash($agent);
+                        $crypt = new JSimpleCrypt($key);
+                        $rcookie = $crypt->encrypt(serialize($credentials));
+                        $lifetime = time() + 365*24*60*60;
+                        setcookie(JUtility::getHash('JLOGIN_REMEMBER'), $rcookie, $lifetime, '/');
+                    }
 				}
 				return true;
 			}

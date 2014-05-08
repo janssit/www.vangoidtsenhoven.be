@@ -15,7 +15,7 @@ class JConfig {
 	var $host = 'localhost';
 	var $user = 'root';
 	var $password = 'root';
-	var $db = 'janss_coolens';
+	var $db = 'janss_vangoidtsenhoven';
 	var $dbprefix = 'jos_';
 	/* Server Settings */
 	var $live_site = '';

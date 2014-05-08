@@ -1,8 +1,8 @@
 <?php
 /**
-* @version		$Id: helper.php 10381 2008-06-01 03:35:53Z pasamio $
+* @version		$Id: helper.php 22952 2012-03-27 00:40:16Z dextercowley $
 * @package		Joomla
-* @copyright	Copyright (C) 2005 - 2008 Open Source Matters. All rights reserved.
+* @copyright	Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
 * @license		GNU/GPL, see LICENSE.php
 * Joomla! is free software. This version may have been modified pursuant
 * to the GNU General Public License, and as distributed it includes or
@@ -36,7 +36,7 @@ class JAdministratorHelper
 		$option = strtolower(JRequest::getCmd('option'));
 
 		$user =& JFactory::getUser();
-		if ($user->get('guest')) {
+		if (!$user->authorize('login', 'administrator')) {
 			$option = 'com_login';
 		}
 
