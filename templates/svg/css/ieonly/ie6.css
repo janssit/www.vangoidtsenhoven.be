@@ -1,0 +1,42 @@
+body {
+	text-align: center; /* for IE */
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+/* -- hack for IE ------------------------ */
+
+/* Remove dotted line on links */
+:focus {
+	-moz-outline-style: none;
+}
+
+form {
+	padding: 0;
+	margin: 0;
+}
+
+div#header div#menu {
+
+}
+
+#menu div.moduletable_menu {
+	margin: 0 0 0 200px;
+}
+
+
+
+#menu a:link  			{ }
+#menu a:visited 		{ }
+#menu a:hover				{ }
+#menu a:active			{ }
+
+
+
+
+
+
+
+
+
+
+
+
