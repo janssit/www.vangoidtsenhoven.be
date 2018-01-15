@@ -1,2 +1,0 @@
-[06-Feb-2009 12:52:07] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Unknown MySQL server host 'xserve.dyndns.info' (1) in /home/vangoidt/public_html/machform/includes/db-core.php on line 11
-[06-Feb-2009 12:53:30] PHP Warning:  mysql_connect() [<a href='function.mysql-connect'>function.mysql-connect</a>]: Unknown MySQL server host 'xserve.dyndns.info' (1) in /home/vangoidt/public_html/machform/includes/db-core.php on line 11
